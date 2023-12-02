@@ -6,6 +6,9 @@ from langchain.vectorstores import Chroma
 from langchain import OpenAI, VectorDBQA
 from langchain.chains import RetrievalQAWithSourcesChain
 import PyPDF2
+import(‘pysqlite3’)
+import sys
+sys.modules[‘sqlite3’] = sys.modules.pop(‘pysqlite3’)
 
 #This function will go through pdf and extract and return list of page texts.
 def read_and_textify(files):
