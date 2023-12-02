@@ -8,7 +8,16 @@ from langchain.chains import RetrievalQAWithSourcesChain
 import PyPDF2
 import pysqlite3
 import sys
-sys.modules[sqlite3] = sys.modules.pop(pysqlite3)
+
+# Use the string representation of the module names
+sqlite3_module_name = 'sqlite3'
+pysqlite3_module_name = 'pysqlite3'
+
+# Check if pysqlite3 is in sys.modules and then replace sqlite3 with pysqlite3
+if pysqlite3_module_name in sys.modules:
+    sys.modules[sqlite3_module_name] = sys.modules.pop(pysqlite3_module_name)
+else:
+    print(f"Module '{pysqlite3_module_name}' not found in sys.modules")
 
 #This function will go through pdf and extract and return list of page texts.
 def read_and_textify(files):
